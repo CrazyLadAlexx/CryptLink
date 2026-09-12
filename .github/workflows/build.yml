@@ -20,7 +20,7 @@ jobs:
           cache: gradle
       - uses: gradle/actions/wrapper-validation@v5
       - run: bash ./gradlew clean build --no-daemon
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: cryptlink-jars-and-checksums
           path: |
