@@ -1,0 +1,7 @@
+name: CryptLink
+version: '${version}'
+main: me.alex.cryptlink.paper.CryptLinkPaper
+api-version: '1.21.11'
+author: Alex
+description: Encrypted cross-server plugin messaging over Velocity
+load: STARTUP

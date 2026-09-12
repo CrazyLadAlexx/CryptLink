@@ -1,0 +1,6 @@
+server-name: "survival"
+keys:
+  1: "BASE64_32_BYTE_KEY"
+current-key-version: 1
+replay-window-seconds: 30
+clock-skew-seconds: 10

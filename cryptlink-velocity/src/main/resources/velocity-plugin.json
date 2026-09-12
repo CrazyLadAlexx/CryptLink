@@ -1,0 +1,9 @@
+{
+  "id": "cryptlink",
+  "name": "CryptLink",
+  "version": "${version}",
+  "description": "Encrypted cross-server plugin messaging relay",
+  "authors": ["Alex"],
+  "dependencies": [],
+  "main": "me.alex.cryptlink.velocity.CryptLinkVelocity"
+}
