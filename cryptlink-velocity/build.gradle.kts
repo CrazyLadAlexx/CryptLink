@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
     implementation(project(":cryptlink-api"))
-    compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
-    testImplementation("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:4.1.2-SNAPSHOT")
+    testImplementation("com.velocitypowered:velocity-api:4.1.2-SNAPSHOT")
 }
 
 tasks.jar {
