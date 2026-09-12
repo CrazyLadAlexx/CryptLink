@@ -15,18 +15,13 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public final class AesGcmCipher {
-    private final int keyVersion;
     private final SecureRandom random = new SecureRandom();
 
-    public AesGcmCipher(int keyVersion) {
+    public WireEnvelope encrypt(byte[] plaintext, int keyVersion, SecretKey key) {
+        validateKey(key);
         if (keyVersion < 0 || keyVersion > 255) {
             throw new IllegalArgumentException("Key version must be between 0 and 255");
         }
-        this.keyVersion = keyVersion;
-    }
-
-    public WireEnvelope encrypt(byte[] plaintext, SecretKey key) {
-        validateKey(key);
         if (plaintext.length > RoutingCodec.MAX_PACKET_SIZE - WireCodec.MIN_ENVELOPE_SIZE) {
             throw new IllegalArgumentException("Plaintext exceeds the plugin message limit");
         }

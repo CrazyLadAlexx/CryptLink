@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - uses: gradle/actions/wrapper-validation@v5
+      - run: bash ./gradlew clean build --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cryptlink-jars-and-checksums
+          path: |
+            cryptlink-api/build/libs/*.jar
+            cryptlink-paper/build/libs/*.jar
+            cryptlink-velocity/build/libs/*.jar
+            build/checksums/*.sha256

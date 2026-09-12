@@ -1,25 +1,20 @@
 package me.alex.cryptlink.paper;
 
-import me.alex.cryptlink.api.SecureMessage;
 import me.alex.cryptlink.api.SecureMessagingApi;
-import me.alex.cryptlink.api.crypto.AesGcmCipher;
-import me.alex.cryptlink.api.wire.MessageCodec;
+import me.alex.cryptlink.api.Subscription;
 import me.alex.cryptlink.api.wire.RoutingCodec;
-import me.alex.cryptlink.api.wire.WireCodec;
 import me.alex.cryptlink.paper.channel.ChannelSender;
 
 import java.util.function.BiConsumer;
 
 public final class SecureMessagingService implements SecureMessagingApi {
-    private final PaperConfig config;
-    private final AesGcmCipher cipher;
+    private final MessageEncoder encoder;
     private final ChannelSender sender;
     private final TopicSubscriptions subscriptions;
 
-    public SecureMessagingService(PaperConfig config, AesGcmCipher cipher,
+    public SecureMessagingService(MessageEncoder encoder,
                                   ChannelSender sender, TopicSubscriptions subscriptions) {
-        this.config = config;
-        this.cipher = cipher;
+        this.encoder = encoder;
         this.sender = sender;
         this.subscriptions = subscriptions;
     }
@@ -36,14 +31,11 @@ public final class SecureMessagingService implements SecureMessagingApi {
     }
 
     @Override
-    public void subscribe(String topic, BiConsumer<String, byte[]> handler) {
-        subscriptions.subscribe(topic, handler);
+    public Subscription subscribe(String topic, BiConsumer<String, byte[]> handler) {
+        return subscriptions.subscribe(topic, handler);
     }
 
     private void transmit(String targetServer, String topic, byte[] payload) {
-        SecureMessage message = new SecureMessage(config.serverName(), targetServer, topic, payload);
-        byte[] plaintext = MessageCodec.encode(message);
-        var envelope = cipher.encrypt(plaintext, config.keyRing().current().key());
-        sender.send(RoutingCodec.encode(targetServer, WireCodec.encode(envelope)));
+        sender.send(encoder.encode(targetServer, topic, payload));
     }
 }

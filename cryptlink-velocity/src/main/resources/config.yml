@@ -1,3 +1,12 @@
 allowed-servers:
   - "survival"
   - "lobby"
+max-packet-bytes: 32766
+messages-per-second: 100
+message-burst: 200
+bytes-per-second: 1048576
+byte-burst: 2097152
+broadcasts-per-second: 10
+broadcast-burst: 20
+rate-limit-idle-seconds: 300
+telemetry-log-interval-seconds: 30

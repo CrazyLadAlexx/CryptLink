@@ -18,8 +18,11 @@ public final class MessageCodec {
         byte[] topic = encodeText(message.topic());
         byte[] payload = message.payload();
         int size = 3 * Short.BYTES + source.length + target.length + topic.length + payload.length;
-        int routingSize = Short.BYTES + target.length;
-        if (size > RoutingCodec.MAX_PACKET_SIZE - routingSize - WireCodec.MIN_ENVELOPE_SIZE) {
+        int upstreamHeader = Protocol.PREFIX_SIZE + 2
+                + (RoutingCodec.BROADCAST.equals(message.targetServer()) ? 0 : target.length);
+        int forwardedHeader = Protocol.PREFIX_SIZE + 1 + source.length;
+        int transportOverhead = Math.max(upstreamHeader, forwardedHeader);
+        if (size > RoutingCodec.MAX_PACKET_SIZE - transportOverhead - WireCodec.MIN_ENVELOPE_SIZE) {
             throw new IllegalArgumentException("Message exceeds the plugin message limit");
         }
         return ByteBuffer.allocate(size)

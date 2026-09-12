@@ -1,0 +1,13 @@
+package me.alex.cryptlink.api.security;
+
+public enum RejectionReason {
+    MALFORMED_PACKET,
+    UNAUTHORISED_BACKEND,
+    SOURCE_MISMATCH,
+    AUTHENTICATION_FAILURE,
+    UNKNOWN_KEY_VERSION,
+    REPLAY,
+    STALE_TIMESTAMP,
+    RATE_LIMIT,
+    UNKNOWN_DESTINATION
+}

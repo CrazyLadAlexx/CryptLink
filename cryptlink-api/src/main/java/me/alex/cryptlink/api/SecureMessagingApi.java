@@ -7,5 +7,5 @@ public interface SecureMessagingApi {
 
     void broadcast(String topic, byte[] payload);
 
-    void subscribe(String topic, BiConsumer<String, byte[]> handler);
+    Subscription subscribe(String topic, BiConsumer<String, byte[]> handler);
 }

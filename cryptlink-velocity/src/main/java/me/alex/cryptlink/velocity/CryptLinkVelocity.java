@@ -6,10 +6,10 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.alex.cryptlink.api.security.SecurityTelemetry;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Set;
 
 public final class CryptLinkVelocity {
     private final ProxyServer proxy;
@@ -29,10 +29,13 @@ public final class CryptLinkVelocity {
         } catch (IOException | IllegalArgumentException exception) {
             System.getLogger("CryptLink").log(System.Logger.Level.ERROR,
                     "Relay disabled: " + exception.getMessage());
-            config = new VelocityConfig(Set.of());
+            config = VelocityConfig.denyAll();
         }
+        SecurityTelemetry telemetry = new SecurityTelemetry(config.telemetryInterval(),
+                message -> System.getLogger("CryptLink").log(System.Logger.Level.WARNING, message));
         proxy.getChannelRegistrar().register(RelayListener.CHANNEL);
-        proxy.getEventManager().register(this, new RelayListener(proxy, config));
+        proxy.getEventManager().register(this,
+                new RelayListener(proxy, config, new RateLimiterRegistry(config), telemetry));
     }
 
     @Subscribe
