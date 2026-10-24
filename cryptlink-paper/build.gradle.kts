@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
     implementation(project(":cryptlink-api"))
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.209-stable")
+    testImplementation("io.papermc.paper:paper-api:26.3.build.209-stable")
 }
 
 tasks.jar {

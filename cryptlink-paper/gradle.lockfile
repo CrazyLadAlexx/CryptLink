@@ -66,4 +66,4 @@ org.opentest4j:opentest4j:1.3.0=testCompileClasspath,testRuntimeClasspath
 org.slf4j:jcl-over-slf4j:1.7.36=testRuntimeClasspath
 org.slf4j:slf4j-api:2.0.16=compileClasspath,testCompileClasspath,testRuntimeClasspath
 org.yaml:snakeyaml:2.2=compileClasspath,testCompileClasspath,testRuntimeClasspath
-empty=annotationProcessor,testAnnotationProcessor
+empty=annotationProcessor,runtimeClasspath,testAnnotationProcessor
