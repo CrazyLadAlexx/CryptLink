@@ -53,4 +53,4 @@ org.spongepowered:configurate-gson:4.1.2=compileClasspath,testCompileClasspath,t
 org.spongepowered:configurate-hocon:4.1.2=compileClasspath,testCompileClasspath,testRuntimeClasspath
 org.spongepowered:configurate-yaml:4.1.2=compileClasspath,testCompileClasspath,testRuntimeClasspath
 org.yaml:snakeyaml:1.33=compileClasspath,testCompileClasspath,testRuntimeClasspath
-empty=annotationProcessor,testAnnotationProcessor
+empty=annotationProcessor,runtimeClasspath,testAnnotationProcessor
